@@ -1,0 +1,30 @@
+seed: 42
+data:
+  train_csv: data/processed/train.csv
+  val_csv:   data/processed/val.csv
+  test_csv:  data/processed/test.csv
+  label_col: Diagnosis
+  feature: data/processed/feature_cols.json
+  scaler: data/processed/scaler.json
+model:
+  name: deep_mlp         # options: mlp or deep_mlp
+train:
+  device: cuda              # 'cuda' if you have GPU, else 'cpu'
+  bs: 4
+  lr: 0.001
+  epochs: 5
+  out_dir: outputs/baseline
+eval:
+  device: cuda              # 'cuda' if you have GPU, else 'cpu'
+  bs: 4
+  
+attack:
+    type: fgsm               # options: none, fgsm, pgd, advgan
+    fgsm_eps: 0.03
+    pgd_eps: 0.03
+    pgd_alpha: 0.01
+    pgd_steps: 10
+    advgan:
+      model_ckpt: outputs/advgan/generator.pt
+      eps: 0.03
+      lambda_adv: 1.0

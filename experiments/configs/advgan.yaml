@@ -1,0 +1,38 @@
+seed: 42
+data:
+  resize: [64, 256]
+  train_csv: data/processed/train.csv
+  val_csv: data/processed/val.csv
+  label_col: Diagnosis
+  feature: data/processed/feature_cols.json
+  scaler: data/processed/scaler.json
+
+model:
+  name: deep_mlp         # or mlp – MUST match your trained baseline
+  ckpt: outputs/baseline/baseline_best.pt # path to your trained classifier
+
+train:
+  device: cuda
+  bs: 32
+  epochs: 50
+  num_workers: 2
+  g_lr: 0.0001
+  d_lr: 0.0004
+  g_steps: 1
+  d_steps: 3
+
+attack:
+  advgan:
+    eps: 0.8
+    lambda_adv: 5        # weight for adversarial loss
+    lambda_gan: 1.0
+    lambda_pert: 0.01
+    targeted: false         # se true -> targeted attack
+    target_class: 0         # obbligatorio se targeted=true
+    attack_loss_type: cw  # options: ce, cw(quando targeted=true)
+    model_ckpt: outputs/advgan/generator.pt
+
+advgan:
+  out_dir: outputs/advgan
+  out_g: outputs/advgan/generator.pt
+  out_d: outputs/advgan/discriminator.pt

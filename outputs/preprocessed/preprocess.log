@@ -1,0 +1,4 @@
+Wrote: outputs\preprocessed\train.csv outputs\preprocessed\val.csv outputs\preprocessed\test.csv
+Saved feature column order to outputs\preprocessed\feature_cols.json
+Fitting scaler on training set...
+Saved scaler to outputs\preprocessed\scaler.json
